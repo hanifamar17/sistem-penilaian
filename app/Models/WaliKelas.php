@@ -9,7 +9,9 @@ class WaliKelas extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'kelas_id', 'nama', 'nip'];
+    protected $table = 'wali_kelas';
+
+    protected $fillable = ['kelas_id', 'nama', 'nip', 'email', 'password', 'role'];
 
     public function kelas()
     {

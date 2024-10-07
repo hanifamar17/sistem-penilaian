@@ -18,11 +18,11 @@ class Kelas extends Model
         parent::boot();
 
         static::creating(function ($kelas) {
-            $kelas->nama_kelas = $kelas->tingkat . ' - ' . $kelas->jurusan;
+            $kelas->nama_kelas = $kelas->tingkat . '  ' . $kelas->jurusan;
         });
 
         static::updating(function ($kelas) {
-            $kelas->nama_kelas = $kelas->tingkat . ' - ' . $kelas->jurusan;
+            $kelas->nama_kelas = $kelas->tingkat . '  ' . $kelas->jurusan;
         });
     }
 
