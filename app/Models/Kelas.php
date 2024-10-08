@@ -26,4 +26,9 @@ class Kelas extends Model
         });
     }
 
+    public function waliKelas()
+    {
+        return $this->hasOne(WaliKelas::class);
+    }
+
 }

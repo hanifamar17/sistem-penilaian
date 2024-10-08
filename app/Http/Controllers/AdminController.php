@@ -7,12 +7,14 @@ use App\Models\Admin;
 use App\Models\Guru;
 use App\Models\WaliKelas;
 use App\Models\Kelas;
+use App\Models\Mapel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
 class AdminController extends Controller
 {
+    //Index for Admin-Guru-Kelas-Wali Kelas-Mapel
     public function index(Request $request)
     {
         $admin = Admin::all();
@@ -34,6 +36,14 @@ class AdminController extends Controller
         return view('admin/kelas-home', compact('kelas'));
     }
 
+    public function waliKelasIndex(Request $request)
+    {
+        $wali_kelas = WaliKelas::all();
+
+        return view('admin/wali-kelas-home', compact('wali_kelas'));
+    }
+
+    //ADMIN
     public function adminAdd()
     {
         return view('admin.admin-add');
@@ -48,11 +58,9 @@ class AdminController extends Controller
             'password' => 'required|string|min:8',
         ]);
 
-        // Membuat user baru dengan hashing password
         Admin::create([
             'name' => $request->name,
             'email' => $request->email,
-            //'password' => Hash::make($request->password),
             'password' => $request->password,
             'role' =>  'Admin',
         ]);
@@ -121,9 +129,20 @@ class AdminController extends Controller
 
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:guru,email',
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+                Rule::unique('guru'),
+            ],
             'password' => 'required|string|min:8',
-            'nip' =>  'required|string|max:20|unique:guru,nip',
+            'nip' =>  [
+                'required',
+                'string',
+                'max:20',
+                Rule::unique('guru'),
+            ],
         ]);
 
         // Membuat user baru dengan hashing password
@@ -260,5 +279,107 @@ class AdminController extends Controller
         $kelas = Kelas::where('id', $id) -> get();
 
         return view('admin.kelas-view', compact('kelas'));
+    }
+
+    //WALI_KELAS
+    public function waliKelasAdd()
+    {
+        $kelas = Kelas::all(); 
+        return view('admin.wali-kelas-add', compact('kelas'));
+    }
+
+    public function waliKelasInsert(Request $request){
+        
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+                Rule::unique('wali_kelas'),
+                ],
+            'password' => 'required|string|min:8',
+            'nip' =>  [
+                'required',
+                'string',
+                'max:20',
+                Rule::unique('wali_kelas'),
+            ],
+            'kelas_id' => 'required|exists:kelas,id',
+        ]);
+
+        // Membuat user baru dengan hashing password
+        WaliKelas::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            //'password' => Hash::make($request->password),
+            'password' => $request->password,
+            'nip' => $request->nip,
+            'role' =>  'Wali Kelas',
+            'kelas_id' => $request->kelas_id,
+        ]);
+
+        return redirect()->route('wali-kelas-home')->with('success', 'Data berhasil ditambahkan!');
+    }
+
+    public function waliKelasDelete($id)
+    {
+        $wali_kelas_delete = WaliKelas::find($id);
+        $wali_kelas_delete->delete();
+
+        return redirect()->route('wali-kelas-home')->with('delete', 'Data berhasil dihapus!');
+    }
+
+    public function waliKelasUpdateForm($id)
+    {
+        //$guru = Guru::where('id', $id) -> get();
+        $wali_kelas = WaliKelas::findOrFail($id);
+        $kelas = Kelas::all();
+
+        return view('admin.wali-kelas-update-form', compact('wali_kelas', 'kelas'));
+    }
+
+    public function waliKelasUpdate(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'nullable|string|max:255',
+            'email' => [
+                'nullable',
+                'string',
+                'email',
+                'max:255',
+                Rule::unique('wali_kelas')->ignore($id),
+            ],
+            'password' => 'nullable|string|min:8',
+            'nip' =>   [
+                'nullable', 
+                'string',
+                'max:20',
+                Rule::unique('wali_kelas')->ignore($id),
+            ],
+            'kelas_id' => 'required|exists:kelas,id',
+        ]);
+        
+        $wali_kelas = WaliKelas::findOrFail($id);
+
+        $dataToUpdate = [
+            'name' => $request->name ?? $wali_kelas->name,
+            'email' => $request->email ?? $wali_kelas->email,
+            'password' =>  $request->password ?? $wali_kelas->password,
+            'nip' => $request->nip ?? $wali_kelas->nip,
+            'kelas_id' => $request->kelas_id ?? $wali_kelas->kelas_id,
+        ];
+
+        $wali_kelas->update($dataToUpdate);
+
+        return redirect()->route('wali-kelas-home')->with('updated','Data Berhasil Diperbarui');
+    }
+
+    public function waliKelasView($id)
+    {
+        $wali_kelas = WaliKelas::where('id', $id) -> get();
+
+        return view('admin.wali-kelas-view', compact('wali_kelas'));
     }
 }

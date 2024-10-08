@@ -31,8 +31,34 @@ route::prefix('admin') -> group(function () {
     Route::post('/kelas-update/{id}', 'App\Http\Controllers\AdminController@kelasUpdate')->name('kelas-update');
     Route::get('/kelas-delete/{id}', 'App\Http\Controllers\AdminController@kelasDelete')->name('kelas-delete');
     Route::get('/kelas-view/{id}', 'App\Http\Controllers\AdminController@kelasView')->name('kelas-view');
+
+    Route::get('/wali-kelas', 'App\Http\Controllers\AdminController@waliKelasIndex')->name('wali-kelas-home');
+    Route::get('/wali-kelas-add', 'App\Http\Controllers\AdminController@waliKelasAdd')->name('wali-kelas-add');
+    Route::post('/wali-kelas-insert', 'App\Http\Controllers\AdminController@waliKelasInsert')->name('wali-kelas-insert');
+    Route::get('/wali-kelas-update-form/{id}', 'App\Http\Controllers\AdminController@waliKelasUpdateForm')->name('wali-kelas-update-form');
+    Route::post('/wali-kelas-update/{id}', 'App\Http\Controllers\AdminController@waliKelasUpdate')->name('wali-kelas-update');
+    Route::get('/wali-kelas-delete/{id}', 'App\Http\Controllers\AdminController@waliKelasDelete')->name('wali-kelas-delete');
+    Route::get('/wali-kelas-view/{id}', 'App\Http\Controllers\AdminController@waliKelasView')->name('wali-kelas-view');
+
+    Route::get('/mapel', 'App\Http\Controllers\MapelController@mapelIndex')->name('mapel-home');
+    Route::get('/mapel-add', 'App\Http\Controllers\MapelController@mapeladd')->name('mapel-add');
+    Route::post('/mapel-insert', 'App\Http\Controllers\MapelController@mapelInsert')->name('mapel-insert');
+    Route::get('/mapel-update-form/{id}', 'App\Http\Controllers\MapelController@mapelUpdateForm')->name('mapel-update-form');
+    Route::post('/mapel-update/{id}', 'App\Http\Controllers\MapelController@mapelUpdate')->name('mapel-update');
+    Route::get('/mapel-delete/{id}', 'App\Http\Controllers\MapelController@mapelDelete')->name('mapel-delete');
+    Route::get('/mapel-view/{id}', 'App\Http\Controllers\MapelController@mapelView')->name('mapel-view');
 }
 );
+
+route::prefix('mapel') -> group(function () {
+    Route::get('/home1', 'App\Http\Controllers\MapelController@mapelIndex1')->name('mapel-home-1');
+    Route::get('/home2', 'App\Http\Controllers\MapelController@mapelIndex2')->name('mapel-home-2');
+    Route::get('/home3', 'App\Http\Controllers\MapelController@mapelIndex3')->name('mapel-home-3');
+
+    Route::get('/mapel-filtered1', 'App\Http\Controllers\MapelController@mapelFilterX')->name('mapel-filtered-1');
+}
+);
+
 
 
 
