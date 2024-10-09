@@ -17,7 +17,12 @@
             @if ($filteredKelas)
             <div class="mb-8 py-2">
                 <h5 class="text-2xl font-medium tracking-tight">Subjects</h5>
-                <span class="font-small mt-2">Display Subject for <a class="text-yellow-600 font-medium">{{$filteredKelas->nama_kelas}}</a></span>
+                <span class="font-small mt-2">Display Subject for Class <a class="text-yellow-600 font-medium">{{$filteredKelas->nama_kelas}}</a></span>
+            </div>
+            @else
+            <div class="mb-8 py-2">
+                <h5 class="text-4xl font-medium text-yellow-600 tracking-tight mb-4">Oooops...</h5>
+                <span class="font-small mt-2 italic text-gray-600">There is an issue with the filter.<br> Please ensure you select an option to apply the filter.</a></span>
             </div>
             @endif
 
@@ -39,7 +44,7 @@
             <!-- Form Filter -->
             <form action="{{ route('mapel-filtered-1') }}" method="GET">
                 <div class="form-group">
-                <label for="kelas_id" class="block mb-2 text-sm font-medium text-gray-900">Pilih Kelas X:</label>
+                    <label for="kelas_id" class="block mb-2 text-sm font-medium text-gray-900">Pilih Kelas X:</label>
                     <div class="flex flex-row space-x-4">
                         <select name="kelas_id" id="kelas_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/4 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             <option value="">-- Pilih Kelas --</option>
@@ -56,7 +61,7 @@
                 </div>
             </form>
 
-            <div class="py-8 flex flex-row-reverse">
+            <div class="py-8 flex flex-row-reverse justify-between">
                 <a href="{{ route('mapel-add')}}" class="max-w-20 min-w-20 text-white text-sm text-center py-2 px-4 ml-2 bg-blue-600 rounded hover:bg-blue-800">
                     Tambah
                 </a>
@@ -64,6 +69,11 @@
                 <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Import
                 </button>-->
+                @foreach($mapel as $mp)
+                <div class="min-w-20 text-white text-sm text-center py-2 px-4 ml-2 bg-yellow-600 rounded">
+                    <span>Wali Kelas: <a class="font-medium">{{ $mp->kelas->waliKelas->name ? $mp->kelas->waliKelas->name : 'Tidak ada wali kelas' }}</a></span>
+                </div>
+                @endforeach
             </div>
 
             <table class="w-full text-sm text-left text-gray-500 ">

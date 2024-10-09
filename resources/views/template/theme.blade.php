@@ -33,7 +33,7 @@
 
     <!--Alphinejs-->
     <script src="{{ asset('js/alpine.js') }}" defer></script>
-
+    
 </head>
 
 <body class="space-y-5 bg-gray-50 text-gray-800">

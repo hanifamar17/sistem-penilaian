@@ -56,6 +56,10 @@ route::prefix('mapel') -> group(function () {
     Route::get('/home3', 'App\Http\Controllers\MapelController@mapelIndex3')->name('mapel-home-3');
 
     Route::get('/mapel-filtered1', 'App\Http\Controllers\MapelController@mapelFilterX')->name('mapel-filtered-1');
+    Route::get('/mapel-filtered2', 'App\Http\Controllers\MapelController@mapelFilterXI')->name('mapel-filtered-2');
+    Route::get('/mapel-filtered3', 'App\Http\Controllers\MapelController@mapelFilterXII')->name('mapel-filtered-3');
+
+    //Route::get('/mapel', 'App\Http\Controllers\MapelController@mapelBreadCrumb')->name('mapel-home');
 }
 );
 

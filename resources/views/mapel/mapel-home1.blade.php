@@ -6,17 +6,13 @@
     <div class="p-4 rounded-md mt-14 bg-white">
         <div class="m-4">
 
-            <nav class="mb-8">
-                <a href="{{ route('mapel-home') }}"
-                    class="min-w-20 text-sm text-center py-2 px-6 rounded border hover:shadow-md transition duration-500">
-                    <i class="fa-solid fa-chevron-left mr-2"></i>
-                    <span>Back to Subjects</span>
-                </a>
+            <nav class="my-4">
+                @include('template/mapel-breadcrumb')
             </nav>
 
             <div class="mb-8 py-2">
                 <h5 class="text-2xl font-medium tracking-tight">Subjects</h5>
-                <span class="font-small mt-2">Display Subject for <a class="text-yellow-600 font-medium">Class X</a></span>
+                <span class="font-small mt-2">Display Subjects for <a class="text-yellow-600 font-medium">Class X</a></span>
             </div>
 
             <!-- Flash message -->
@@ -64,6 +60,8 @@
                 </button>-->
             </div>
 
+            
+
             <table class="w-full text-sm text-left text-gray-500 ">
                 <thead class="text-sm text-gray-700 uppercase">
                     <tr class="text-left border-b-2">
@@ -71,6 +69,7 @@
                         <th scope="col" class="px-3 py-3">Mata Pelajaran</th>
                         <th scope="col" class="px-3 py-3">Kelas</th>
                         <th scope="col" class="px-3 py-3">Guru</th>
+                        <th scope="col" class="px-3 py-3">Wali Kelas</th>
                         <th scope="col" class="px-3 py-3">Updated at</th>
                         <th scope="col" class="px-3 py-3">Action</th>
                     </tr>
@@ -89,6 +88,7 @@
                         <td class="px-3 py-2">{{ $mapel->name }}</td>
                         <td class="px-3 py-2">{{ $mapel->kelas->nama_kelas }}</td>
                         <td class="px-3 py-2">{{ $mapel->guru->name }}</td>
+                        <td class="px-3 py-2">{{ $mapel->kelas->waliKelas->name ? $mapel->kelas->waliKelas->name : 'Tidak ada wali kelas' }}</td>
                         <td class="px-3 py-2">{{ $mapel->updated_at->format('l, d F Y') }}</td>
                         <td class="px-3 py-2">
                             <div class="flex flex-row space-x-4">
