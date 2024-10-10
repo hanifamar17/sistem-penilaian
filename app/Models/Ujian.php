@@ -9,6 +9,7 @@ class Ujian extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
-    protected $date = ['updated_at'];
+    protected $table = 'ujian';
+
+    protected $fillable = ['name', 'semester', 'tahun_ajaran'];
 }

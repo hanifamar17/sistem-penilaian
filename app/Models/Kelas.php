@@ -31,4 +31,9 @@ class Kelas extends Model
         return $this->hasOne(WaliKelas::class);
     }
 
+    public function siswa()
+    {
+        return $this->hasMany(Siswa::class);
+    }
+
 }

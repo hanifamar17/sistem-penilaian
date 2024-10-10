@@ -63,6 +63,36 @@ route::prefix('mapel') -> group(function () {
 }
 );
 
+route::prefix('siswa') -> group(function () {
+    Route::get('/', 'App\Http\Controllers\SiswaController@siswaIndex')->name('siswa-home');
+    Route::get('/siswa-add', 'App\Http\Controllers\SiswaController@siswaAdd')->name('siswa-add');
+    Route::post('/siswa-insert', 'App\Http\Controllers\SiswaController@siswaInsert')->name('siswa-insert');
+    Route::get('/siswa-update-form/{id}', 'App\Http\Controllers\SiswaController@siswaUpdateForm')->name('siswa-update-form');
+    Route::post('/siswa-update/{id}', 'App\Http\Controllers\SiswaController@siswaUpdate')->name('siswa-update');
+    Route::get('/siswa-delete/{id}', 'App\Http\Controllers\SiswaController@siswaDelete')->name('siswa-delete');
+    Route::get('/siswa-view/{id}', 'App\Http\Controllers\SiswaController@siswaView')->name('siswa-view');
+
+    Route::get('/home1', 'App\Http\Controllers\SiswaController@siswaIndex1')->name('siswa-home-1');
+    Route::get('/home2', 'App\Http\Controllers\SiswaController@siswaIndex2')->name('siswa-home-2');
+    Route::get('/home3', 'App\Http\Controllers\SiswaController@siswaIndex3')->name('siswa-home-3');
+
+    Route::get('/siswa-filtered1', 'App\Http\Controllers\SiswaController@siswaFilterX')->name('siswa-filtered-1');
+    Route::get('/siswa-filtered2', 'App\Http\Controllers\SiswaController@siswaFilterXI')->name('siswa-filtered-2');
+    Route::get('/siswa-filtered3', 'App\Http\Controllers\SiswaController@siswaFilterXII')->name('siswa-filtered-3');
+}
+);
+
+route::prefix('ujian') -> group(function () {
+    Route::get('/', 'App\Http\Controllers\UjianController@ujianIndex')->name('ujian-home');
+    Route::get('/ujian-add', 'App\Http\Controllers\UjianController@ujianAdd')->name('ujian-add');
+    Route::post('/ujian-insert', 'App\Http\Controllers\UjianController@ujianInsert')->name('ujian-insert');
+    Route::get('/ujian-update-form/{id}', 'App\Http\Controllers\UjianController@ujianUpdateForm')->name('ujian-update-form');
+    Route::post('/ujian-update/{id}', 'App\Http\Controllers\UjianController@ujianUpdate')->name('ujian-update');
+    Route::get('/ujian-delete/{id}', 'App\Http\Controllers\UjianController@ujianDelete')->name('ujian-delete');
+    Route::get('/ujian-view/{id}', 'App\Http\Controllers\UjianController@ujianView')->name('ujian-view');
+}
+);
+
 
 
 
