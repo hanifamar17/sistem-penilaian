@@ -93,6 +93,14 @@ route::prefix('ujian') -> group(function () {
 }
 );
 
+route::prefix('nilai') -> group(function () {
+    Route::get('/', 'App\Http\Controllers\NilaiController@nilaiIndex')->name('nilai-home');
+    Route::get('/nilai-mapel/{kelas_id}', 'App\Http\Controllers\NilaiController@nilaiMapel')->name('nilai-mapel');
+    Route::get('/nilai/{kelas_id}/siswa/{mapel_id}', 'App\Http\Controllers\NilaiController@nilaiSiswa')->name('nilai-siswa');
+    Route::post('/nilai/{kelas_id}/insert/{mapel_id}', 'App\Http\Controllers\NilaiController@nilaiInsert')->name('nilai-insert');
+}
+);
+
 
 
 

@@ -12,4 +12,9 @@ class Ujian extends Model
     protected $table = 'ujian';
 
     protected $fillable = ['name', 'semester', 'tahun_ajaran'];
+
+    public function nilai()
+    {
+        return $this->hasOne(Nilai::class);
+    }
 }

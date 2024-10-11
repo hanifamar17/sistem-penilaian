@@ -71,7 +71,7 @@
                 </button>-->
                 @foreach($siswa as $sw)
                 <div class="min-w-20 text-white text-sm text-center py-2 px-4 ml-2 bg-yellow-600 rounded">
-                    <span>Wali Kelas: <a class="font-medium">{{ $sw->kelas->waliKelas->name ? $sw->kelas->waliKelas->name : 'Tidak ada wali kelas' }}</a></span>
+                    <span>Wali Kelas: <a class="font-medium">{{ $sw->kelas->waliKelas ? $sw->kelas->waliKelas->name : 'Tidak ada wali kelas' }}</a></span>
                 </div>
                 @endforeach
             </div>

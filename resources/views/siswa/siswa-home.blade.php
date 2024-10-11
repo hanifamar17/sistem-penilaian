@@ -59,7 +59,7 @@
                         <td class="px-3 py-2">{{ $siswa->nis }}</td>
                         <td class="px-3 py-2">{{ $siswa->name }}</td>
                         <td class="px-3 py-2">{{ $siswa->kelas->nama_kelas }}</td>
-                        <td class="px-3 py-2">{{ $siswa->kelas->waliKelas->name ? $siswa->kelas->waliKelas->name : 'Tidak ada wali kelas' }}</td>
+                        <td class="px-3 py-2">{{ $siswa->kelas->waliKelas ? $siswa->kelas->waliKelas->name : 'Tidak ada wali kelas' }}</td>
                         <td class="px-3 py-2">{{ $siswa->updated_at->format('l, d F Y') }}</td>
                         <td class="px-3 py-2">
                             <div class="flex flex-row space-x-4">
