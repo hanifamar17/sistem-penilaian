@@ -27,4 +27,9 @@ class Nilai extends Model
     {
         return $this->belongsTo(Ujian::class);
     }
+
+    public function akademik()
+    {
+        return $this->belongsTo(Akademik::class);
+    }
 }

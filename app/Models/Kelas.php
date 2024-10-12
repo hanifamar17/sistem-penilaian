@@ -11,7 +11,7 @@ class Kelas extends Model
 
     protected $table = 'kelas';
 
-    protected $fillable = ['tingkat', 'jurusan', 'nama_kelas',];
+    protected $fillable = ['tingkat', 'jurusan', 'akademik_id',];
 
     public static function boot()
     {
@@ -36,4 +36,8 @@ class Kelas extends Model
         return $this->hasMany(Siswa::class);
     }
 
+    public function akademik()
+    {
+        return $this->belongsTo(Akademik::class);
+    }
 }

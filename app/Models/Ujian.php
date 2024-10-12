@@ -11,10 +11,15 @@ class Ujian extends Model
 
     protected $table = 'ujian';
 
-    protected $fillable = ['name', 'semester', 'tahun_ajaran'];
+    protected $fillable = ['name', 'akademik_id'];
 
     public function nilai()
     {
         return $this->hasOne(Nilai::class);
+    }
+
+    public function akademik()
+    {
+        return $this->belongsTo(Akademik::class);
     }
 }

@@ -6,6 +6,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+route::prefix('akademik') -> group(function () {
+    Route::get('/', 'App\Http\Controllers\AkademikController@akademikIndex')->name('akademik-home');
+    Route::get('/akademik-add', 'App\Http\Controllers\AkademikController@akademikAdd')->name('akademik-add');
+    Route::post('/akademik-insert', 'App\Http\Controllers\AkademikController@akademikInsert')->name('akademik-insert');
+    Route::get('/akademik-update-form/{id}', 'App\Http\Controllers\AkademikController@akademikUpdateForm')->name('akademik-update-form');
+    Route::post('/akademik-update/{id}', 'App\Http\Controllers\AkademikController@akademikUpdate')->name('akademik-update');
+    Route::get('/akademik-delete/{id}', 'App\Http\Controllers\AkademikController@akademikDelete')->name('akademik-delete');
+    Route::get('/akademik-view/{id}', 'App\Http\Controllers\AkademikController@akademikView')->name('akademik-view');
+}
+);
+
 //ADMIN/ADMIN
 route::prefix('admin') -> group(function () {
     Route::get('/', 'App\Http\Controllers\AdminController@index')->name('home');

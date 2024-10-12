@@ -29,25 +29,12 @@
                     </div>
                 </div>
                 <div class="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 px-4 py-2 space-y-1">
-                    <label for="semester" class="self-center text-gray-600">Semester</label>
+                    <label for="akademik_id" class="self-center text-gray-600">Academic</label>
                     <div class="relative z-0 w-full mb-5">
-                        <select name="semester" id="semester" class="pt-3 pb-2 px-3 block w-full mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200">
-                            <option value="">-- Choose --</option>
-                            <option value="Ganjil">Ganjil</option>
-                            <option value="Ganjil">Genap</option>
-                        </select>
-                    </div>
-                </div>
-                @php
-                $currentYear = date('Y');
-                $nextYear = $currentYear + 1;
-                @endphp
-                <div class="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 px-4 py-2 space-y-1">
-                    <label for="tahun_ajaran" class="self-center text-gray-600">Academic Year</label>
-                    <div class="relative z-0 w-full mb-5">
-                        <select name="tahun_ajaran" id="tahun_ajaran" class="pt-3 pb-2 px-3 block w-full mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200">
-                            <option value="">-- Choose --</option>
-                            <option value="{{ $currentYear }}/{{ $nextYear }}">{{ $currentYear }}/{{ $nextYear }}</option>
+                        <select name="akademik_id" class="pt-3 pb-2 px-3 block w-full mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200">
+                            @foreach ($akademik as $ak)
+                            <option value="{{ $ak->id }}"> {{ $ak->name }} </option>
+                            @endforeach
                         </select>
                     </div>
                 </div>

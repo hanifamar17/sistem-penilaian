@@ -7,6 +7,7 @@ use App\Models\Admin;
 use App\Models\Guru;
 use App\Models\WaliKelas;
 use App\Models\Kelas;
+use App\Models\Akademik;
 use App\Models\Mapel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -31,7 +32,7 @@ class AdminController extends Controller
 
     public function kelasIndex(Request $request)
     {
-        $kelas = Kelas::all();
+        $kelas = Kelas::with('akademik')->get();
 
         return view('admin/kelas-home', compact('kelas'));
     }
@@ -218,7 +219,9 @@ class AdminController extends Controller
     //KELAS
     public function kelasAdd()
     {
-        return view('admin.kelas-add');
+        $akademik = Akademik::all();
+
+        return view('admin.kelas-add', compact('akademik'));
     }
 
     public function kelasInsert(Request $request){
@@ -228,12 +231,14 @@ class AdminController extends Controller
         $request->validate([
             'tingkat' => 'required|string',
             'jurusan' => 'required|string|max:50',
+            'akademik_id' => 'required|exists:akademik,id',
         ]);
 
         // Membuat user baru dengan hashing password
         Kelas::create([
             'tingkat' => $request->tingkat,
             'jurusan' => $request->jurusan,
+            'akademik_id' => $request->akademik_id,
         ]);
 
         return redirect()->route('kelas-home')->with('success', 'Data berhasil ditambahkan!');
@@ -251,8 +256,9 @@ class AdminController extends Controller
     {
         //$guru = Guru::where('id', $id) -> get();
         $kelas = Kelas::findOrFail($id);
+        $akademik = Akademik::All();
 
-        return view('admin.kelas-update-form', compact('kelas'));
+        return view('admin.kelas-update-form', compact('kelas', 'akademik'));
     }
 
     public function kelasUpdate(Request $request, $id)
@@ -260,6 +266,7 @@ class AdminController extends Controller
         $request->validate([
             'tingkat' => 'nullable|string',
             'jurusan' => 'nullable|string',
+            'akademik_id' => 'required|exists:akademik,id',
         ]);
         
         $kelas = Kelas::findOrFail($id);
@@ -267,6 +274,7 @@ class AdminController extends Controller
         $dataToUpdate = [
             'tingkat' => $request->tingkat ?? $kelas->tingkat, 
             'jurusan' =>  $request->jurusan ?? $kelas->jurusan,
+            'akademik_id' => $request->akademik_id ?? $kelas->akademik_id,
         ];
 
         $kelas->update($dataToUpdate);
@@ -276,7 +284,7 @@ class AdminController extends Controller
 
     public function kelasView($id)
     {
-        $kelas = Kelas::where('id', $id) -> get();
+        $kelas = Kelas::with('akademik') -> where('id', $id) -> get();
 
         return view('admin.kelas-view', compact('kelas'));
     }

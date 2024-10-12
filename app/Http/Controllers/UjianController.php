@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Ujian;
+use App\Models\Akademik;
 use Illuminate\Validation\Rule;
 
 class UjianController extends Controller
@@ -11,29 +12,29 @@ class UjianController extends Controller
     //UJIAN
     public function ujianIndex(Request $request)
     {
-        $ujian = Ujian::all();
+        $ujian = Ujian::with('akademik')->get();
 
         return view('ujian/ujian-home', compact('ujian'));
     }
 
     public function ujianAdd()
     {
-        return view('ujian.ujian-add');
+        $akademik = Akademik::all();
+
+        return view('ujian.ujian-add', compact('akademik'));
     }
 
     public function ujianInsert(Request $request){
 
         $request->validate([
             'name' => 'required|string',
-            'semester' => 'required|string',
-            'tahun_ajaran' => 'required|string',
+            'akademik_id' => 'required|exists:akademik,id',
         ]);
 
         // Membuat user baru dengan hashing password
         Ujian::create([
             'name' => $request->name,
-            'semester' => $request->semester,
-            'tahun_ajaran' => $request->tahun_ajaran,
+            'akademik_id' => $request->akademik_id,
         ]);
 
         return redirect()->route('ujian-home')->with('success', 'Data berhasil ditambahkan!');
@@ -50,6 +51,7 @@ class UjianController extends Controller
     public function ujianUpdateForm($id)
     {
         $ujian = Ujian::findOrFail($id);
+        $akademik = Akademik::All();
 
         return view('ujian.ujian-update-form', compact('ujian'));
     }
@@ -58,16 +60,14 @@ class UjianController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
-            'semester' => 'required|string',
-            'tahun_ajaran' => 'required|string',
+            'akademik_id' => 'required|exists:akademik,id',
         ]);
         
         $ujian = Ujian::findOrFail($id);
 
         $dataToUpdate = [
             'name' => $request->name ?? $ujian->name, 
-            'semester' =>  $request->semester ?? $ujian->semester,
-            'tahun_ajaran' =>  $request->tahun_ajaran ?? $ujian->tahun_ajaran,
+            'akademik_id' => $request->akademik_id ?? $ujian->akademik_id,
         ];
 
         $ujian->update($dataToUpdate);
@@ -77,7 +77,7 @@ class UjianController extends Controller
 
     public function ujianView($id)
     {
-        $ujian = Ujian::where('id', $id) -> get();
+        $ujian = Ujian::with('akademik') -> where('id', $id) -> get();
 
         return view('ujian.ujian-view', compact('ujian'));
     }

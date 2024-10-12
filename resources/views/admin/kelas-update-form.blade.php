@@ -25,19 +25,32 @@
                 <div class="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 px-4 py-2 space-y-1">
                     <label for="tingkat" class="self-center text-gray-600">Tingkat</label>
                     <div class="relative z-0 w-full mb-5">
-                    <select name="tingkat" required class="pt-3 pb-2 px-3 block w-full mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200">
-                        <option value="X" {{ old('tingkat', $kelas->tingkat) == 'X' ? 'selected' : '' }}>X</option>
-                        <option value="XI" {{ old('tingkat', $kelas->tingkat) == 'XI' ? 'selected' : '' }}>XI</option>
-                        <option value="XII" {{ old('tingkat', $kelas->tingkat) == 'XII' ? 'selected' : '' }}>XII</option>
-                    </select>
+                        <select name="tingkat" required class="pt-3 pb-2 px-3 block w-full mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200">
+                            <option value="X" {{ old('tingkat', $kelas->tingkat) == 'X' ? 'selected' : '' }}>X</option>
+                            <option value="XI" {{ old('tingkat', $kelas->tingkat) == 'XI' ? 'selected' : '' }}>XI</option>
+                            <option value="XII" {{ old('tingkat', $kelas->tingkat) == 'XII' ? 'selected' : '' }}>XII</option>
+                        </select>
                     </div>
                 </div>
                 <div class="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 px-4 py-2 space-y-1">
                     <label for="jurusan" class="self-center text-gray-600">Jurusan</label>
                     <div class="relative z-0 w-full mb-5">
-                    <input type="text" name="jurusan" value="{{ old('jurusan', $kelas->jurusan) }}" class="pt-3 pb-2 px-3 block w-full mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200">
+                        <input type="text" name="jurusan" value="{{ old('jurusan', $kelas->jurusan) }}" class="pt-3 pb-2 px-3 block w-full mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200">
                     </div>
                 </div>
+                <div class="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 px-4 py-2 space-y-1">
+                    <label for="akademik_id" class="self-center text-gray-600">Academic</label>
+                    <div class="relative z-0 w-full mb-5">
+                        <select name="akademik_id" class="pt-3 pb-2 px-3 block w-full mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200">
+                            @foreach ($akademik as $ak)
+                            <option value="{{ $ak->id }}" {{ old('akademik_id', $kelas->akademik_id) == $ak->id ? 'selected' : '' }}>
+                                {{ $ak->name }}
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
                 <div class="flex flex-row-reverse space-x-reverse space-x-4 mt-8">
                     <button type="submit" class="max-w-20 min-w-20 text-white text-sm text-center py-2 px-4 ml-2 bg-blue-600 rounded hover:bg-blue-800">
                         Submit
@@ -57,6 +70,6 @@
                 @include('template/footer-login')
             </div>
         </div>
-        
+
     </div>
 </div>

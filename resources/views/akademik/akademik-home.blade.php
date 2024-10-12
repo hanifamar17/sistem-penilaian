@@ -5,7 +5,7 @@
 <div class="p-4 sm:ml-52">
     <div class="p-4 rounded-md mt-14 bg-white">
         <div class="m-4">
-            <h5 class="text-2xl font-medium tracking-tight">Exams</h5>
+            <h5 class="text-2xl font-medium tracking-tight">Academic</h5>
 
             @if($success = Session::get('success'))
             <div class="p-4 my-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
@@ -22,7 +22,7 @@
             @endif
 
             <div class="py-8 flex flex-row-reverse">
-                <a href="{{ route('ujian-add')}}" class="max-w-20 min-w-20 text-white text-sm text-center py-2 px-4 ml-2 bg-blue-600 rounded hover:bg-blue-800">
+                <a href="{{ route('akademik-add')}}" class="max-w-20 min-w-20 text-white text-sm text-center py-2 px-4 ml-2 bg-blue-600 rounded hover:bg-blue-800">
                     Tambah
                 </a>
                 <!--
@@ -35,33 +35,35 @@
                 <thead class="text-sm text-gray-700 uppercase">
                     <tr class="text-left border-b-2">
                         <th scope="col" class="px-3 py-3">No</th>
-                        <th scope="col" class="px-3 py-3">Exam Name</th>
-                        <th scope="col" class="px-3 py-3">Academic</th>
+                        <th scope="col" class="px-3 py-3">Academic Name</th>
+                        <th scope="col" class="px-3 py-3">Semester</th>
+                        <th scope="col" class="px-3 py-3">Academic Year</th>
                         <th scope="col" class="px-3 py-3">Updated at</th>
                         <th scope="col" class="px-3 py-3">Action</th>
                     </tr>
                 </thead>
                 <tbody class="text-gray-700">
-                    @foreach($ujian as $ujian)
+                    @foreach($akademik as $akademik)
                     <tr class="border-b">
                         <td class="px-3 py-2">{{ $loop->iteration }}</td>
-                        <td class="px-3 py-2">{{ $ujian->name }}</td>
-                        <td class="px-3 py-2">{{ $ujian->akademik->name }}</td>
-                        <td class="px-3 py-2">{{ $ujian->updated_at->format('d F Y') }}</td>
+                        <td class="px-3 py-2">{{ $akademik->name }}</td>
+                        <td class="px-3 py-2">{{ $akademik->semester }}</td>
+                        <td class="px-3 py-2">{{ $akademik->tahun_ajaran }}</td>
+                        <td class="px-3 py-2">{{ $akademik->updated_at->format('l, d F Y') }}</td>
                         <td class="px-3 py-2">
                             <div class="flex flex-row space-x-4">
                                 <div>
-                                    <a href="/ujian/ujian-view/{{  $ujian->id }}" class="text-blue-600 hover:text-blue-900">
+                                    <a href="/akademik/akademik-view/{{  $akademik->id }}" class="text-blue-600 hover:text-blue-900">
                                     &laquo view &raquo
                                     </a>
                                 </div>
                                 <div>
-                                    <a href="{{  route('ujian-update-form', $ujian->id) }}" class="text-blue-600 hover:text-blue-900">
+                                    <a href="{{  route('akademik-update-form', $akademik->id) }}" class="text-blue-600 hover:text-blue-900">
                                     &laquo update &raquo
                                     </a>
                                 </div>
                                 <div>
-                                    <a href="/ujian/ujian-delete/{{  $ujian->id }}" class="text-blue-600 hover:text-blue-900">
+                                    <a href="/akademik/akademik-delete/{{  $akademik->id }}" class="text-blue-600 hover:text-blue-900">
                                     &laquo delete &raquo
                                     </a>
                                 </div>

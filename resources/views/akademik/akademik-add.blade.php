@@ -6,7 +6,7 @@
     <div class="p-4 rounded-md mt-14 bg-white">
         <div class="m-4">
 
-            <h5 class="mb-2 py-2 text-2xl font-medium tracking-tight">Create Class</h5>
+            <h5 class="mb-2 py-2 text-2xl font-medium tracking-tight">Add Academic</h5>
 
             @if ($errors->any())
             <div class="alert alert-danger">
@@ -20,42 +20,38 @@
             </div>
             @endif
 
-            <form action="{{ route('kelas-insert')}}" method="POST">
+            <form action="{{ route('akademik-insert')}}" method="POST">
                 @csrf
                 <div class="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 px-4 py-2 space-y-1">
-                    <label for="tingkat" class="self-center text-gray-600">Tingkat</label>
+                    <label for="semester" class="self-center text-gray-600">Semester</label>
                     <div class="relative z-0 w-full mb-5">
-                        <select name="tingkat" required class="pt-3 pb-2 px-3 block w-full mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200">
-                            <option>Pilih Kelas</option>
-                            <option value="X">X</option>
-                            <option value="XI">XI</option>
-                            <option value="XII">XII</option>
+                        <select name="semester" id="semester" class="pt-3 pb-2 px-3 block w-full mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200">
+                            <option value="">-- Choose --</option>
+                            <option value="Ganjil">Ganjil</option>
+                            <option value="Ganjil">Genap</option>
                         </select>
                     </div>
                 </div>
+                @php
+                $currentYear = date('Y');
+                $nextYear = $currentYear + 1;
+                @endphp
                 <div class="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 px-4 py-2 space-y-1">
-                    <label for="jurusan" class="self-center text-gray-600">Jurusan</label>
+                    <label for="tahun_ajaran" class="self-center text-gray-600">Academic Year</label>
                     <div class="relative z-0 w-full mb-5">
-                        <input type="text" name="jurusan" autocomplete="jurusan" placeholder="" required class="pt-3 pb-2 px-3 block w-full mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200">
-                    </div>
-                </div>
-                <div class="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 px-4 py-2 space-y-1">
-                    <label for="akademik_id" class="self-center text-gray-600">Academic</label>
-                    <div class="relative z-0 w-full mb-5">
-                        <select name="akademik_id" class="pt-3 pb-2 px-3 block w-full mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200">
-                            @foreach ($akademik as $ak)
-                            <option value="{{ $ak->id }}"> {{ $ak->name }} </option>
-                            @endforeach
+                        <select name="tahun_ajaran" id="tahun_ajaran" class="pt-3 pb-2 px-3 block w-full mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200">
+                            <option value="">-- Choose --</option>
+                            <option value="{{ $currentYear }}-{{ $nextYear }}">{{ $currentYear }}-{{ $nextYear }}</option>
                         </select>
                     </div>
                 </div>
-
+                
                 <div class="flex flex-row-reverse space-x-reverse space-x-4 mt-8">
                     <button type="submit" class="max-w-20 min-w-20 text-white text-sm text-center py-2 px-4 ml-2 bg-blue-600 rounded hover:bg-blue-800">
                         Submit
                     </button>
 
-                    <a href="{{ route('kelas-home') }}"
+                    <a href="{{ route('akademik-home') }}"
                         class="min-w-20 text-sm text-center py-2 px-6 rounded border hover:shadow-md transition duration-500">
                         <i class="fa-solid fa-chevron-left mr-2"></i>
                         <span>Kembali</span>

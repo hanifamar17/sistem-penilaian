@@ -31,13 +31,13 @@
 
 
             <div class="py-8 flex flex-row flex-row-reverse justify-between">
-                <div class="grid gap-x-0 grid-cols-2 w-64 mt-4 font-medium text-gray-900">
-                    <div>Subject</div>
+                <div class="grid gap-x-0 grid-cols-2 w-64 mt-4 text-gray-900">
+                    <div class="font-medium">Subject</div>
                     <div>: {{ $mapel->name }}</div>
-                    <div>Class</div>
+                    <div class="font-medium">Class</div>
                     <div>: {{ $kelas->nama_kelas }}</div>
-                    <div>Homeroom T</div>
-                    <div>: {{ $kelas->nama_kelas }}</div>
+                    <div class="font-medium">Homeroom T</div>
+                    <div>: {{ $kelas->waliKelas ? $kelas->waliKelas->name : 'Tidak ada wali kelas' }}</div>
                 </div>
 
                 <div class="min-w-20 text-white text-sm text-center py-2 px-4 bg-yellow-600 rounded self-end">

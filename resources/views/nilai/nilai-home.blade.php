@@ -21,16 +21,19 @@
             </div>
             @endif
 
+<!--
+            <div class="py-8 flex flex-row flex-row-reverse justify-between">
+                <div class="grid gap-x-0 grid-cols-2 w-64 mt-4 text-gray-900">
+                    <div class="font-medium">Semester</div>
+                    <div>: </div>
+                    <div class="font-medium">Academic Year</div>
+                    <div>: </div>
+                </div>
 
-            <div class="py-8 flex">
-                <!--
-                <a href="{{ route('kelas-add')}}" class="max-w-20 min-w-20 text-white text-sm text-center py-2 px-4 ml-2 bg-blue-600 rounded hover:bg-blue-800">
-                    Tambah
-                </a>-->
                 <div class="min-w-20 text-white text-sm text-center py-2 px-4 bg-yellow-600 rounded">
                     <span>Select Class to Display/Enter Student Scores</span>
                 </div>
-            </div>
+            </div>-->
 
             <table class="w-full text-sm text-left text-gray-500 ">
                 <thead class="text-sm text-gray-700 uppercase">

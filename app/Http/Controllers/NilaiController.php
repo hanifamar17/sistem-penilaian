@@ -17,21 +17,46 @@ class NilaiController extends Controller
     public function nilaiIndex(Request $request)
     {
         $kelas = Kelas::with('WaliKelas')->get();
+        $ujian = Ujian::all();
 
-        return view('nilai/nilai-home', compact('kelas'));
+        return view('nilai/nilai-home', compact('kelas', 'ujian'));
     }
 
     public function nilaiMapel($kelas_id)
     {
         $kelas = Kelas::findOrFail($kelas_id); // Cari kelas berdasarkan id
-        $mapel = Mapel::where('kelas_id', $kelas_id)->get(); // Ambil mapel dari kelas
+        $mapelList = Mapel::where('kelas_id', $kelas_id)->get(); // Ambil mapel dari kelas
+        $ujian = Ujian::all();
+        $siswaList = Siswa::where('kelas_id', $kelas_id)->pluck('id'); // Ambil semua siswa di kelas ini 
 
-        return view('nilai.nilai-mapel', compact('kelas', 'mapel'));
+        $mapelStatus = $mapelList->map(function ($mapel) use ($siswaList, $ujian){
+            
+            $nilaiMapel = Nilai::where('mapel_id', $mapel->id)
+                                ->whereIn('siswa_id', $siswaList)
+                                ->get();
+
+            $totalExpectedNilai = $siswaList->count() * $ujian->count(); // Hitung jumlah ujian yang diharapkan
+
+            // Cek apakah semua nilai sudah diisi
+            $nilaiNull = $nilaiMapel->contains(function ($item){
+                return is_null($item->nilai);
+            });
+
+            // Jika tidak ada nilai null dan jumlah nilai sesuai dengan yang diharapkan
+            $status = (!$nilaiNull && $nilaiMapel->count() === $totalExpectedNilai) ? 'Completed' : 'On Progress';
+
+            return [
+                'mapel' => $mapel,
+                'status' => $status
+            ];
+        });
+
+        return view('nilai.nilai-mapel', compact('kelas', 'mapelStatus', 'ujian'));
     }
 
     public function nilaiSiswa($kelas_id, $mapel_id)
     {
-        $kelas = Kelas::findOrFail($kelas_id);
+        $kelas = Kelas::with('waliKelas')->findOrFail($kelas_id);
         $mapel = Mapel::findOrFail($mapel_id);
         $siswa = Siswa::where('kelas_id', $kelas_id)->get(); // Ambil siswa dari kelas
         $ujian = Ujian::all();
