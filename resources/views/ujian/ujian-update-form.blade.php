@@ -2,7 +2,7 @@
 @section('Selamat Datang','Selamat Datang, Sistem Penilaian')
 @include('template/sidebar')
 @section('container')
-<div class="p-4 sm:ml-52">
+<div class="p-4 sm:ml-56">
     <div class="p-4 rounded-md mt-14 bg-white">
         <div class="m-4">
 
@@ -29,28 +29,18 @@
                     </div>
                 </div>
                 <div class="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 px-4 py-2 space-y-1">
-                    <label for="semester" class="self-center text-gray-600">Semester</label>
+                    <label for="akademik_id" class="self-center text-gray-600">Academic</label>
                     <div class="relative z-0 w-full mb-5">
-                        <select name="semester" id="semester" class="pt-3 pb-2 px-3 block w-full mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200">
-                            <option value="">-- Choose --</option>
-                            <option value="Ganjil" {{ old('semester', $ujian->semester) == 'Ganjil' ? 'selected' : '' }}>Ganjil</option>
-                            <option value="Genap" {{ old('semester', $ujian->semester) == 'Genap' ? 'selected' : '' }}>Genap</option>
+                        <select name="akademik_id" class="pt-3 pb-2 px-3 block w-full mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200">
+                            @foreach ($akademik as $ak)
+                            <option value="{{ $ak->id }}" {{ old('akademik_id', $ujian->akademik_id) == $ak->id ? 'selected' : '' }}>
+                                {{ $ak->name }}
+                            </option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
-                @php
-                $currentYear = date('Y');
-                $nextYear = $currentYear + 1;
-                @endphp
-                <div class="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 px-4 py-2 space-y-1">
-                    <label for="tahun_ajaran" class="self-center text-gray-600">Academic Year</label>
-                    <div class="relative z-0 w-full mb-5">
-                        <select name="tahun_ajaran" id="tahun_ajaran" class="pt-3 pb-2 px-3 block w-full mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200">
-                            <option value="">-- Choose --</option>
-                            <option value="{{ $currentYear }}/{{ $nextYear }}" {{ old('tahun_ajaran', $ujian->tahun_ajaran) == "$currentYear/$nextYear" ? 'selected' : '' }}>{{ $currentYear }}/{{ $nextYear }}</option>
-                        </select>
-                    </div>
-                </div>
+                
 
                 <div class="flex flex-row-reverse space-x-reverse space-x-4 mt-8">
                     <button type="submit" class="max-w-20 min-w-20 text-white text-sm text-center py-2 px-4 ml-2 bg-blue-600 rounded hover:bg-blue-800">

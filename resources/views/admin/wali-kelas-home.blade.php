@@ -3,7 +3,7 @@
 @include('template/sidebar')
 @section('container')
 <!--Flowbite-->
-<div class="p-4 sm:ml-52">
+<div class="p-4 sm:ml-56">
     <div class="p-4 rounded-md mt-14 bg-white">
         <div class="m-4">
             <h5 class="text-2xl font-medium tracking-tight">Homeroom Teacher</h5>

@@ -53,7 +53,7 @@ class UjianController extends Controller
         $ujian = Ujian::findOrFail($id);
         $akademik = Akademik::All();
 
-        return view('ujian.ujian-update-form', compact('ujian'));
+        return view('ujian.ujian-update-form', compact('ujian', 'akademik'));
     }
 
     public function ujianUpdate(Request $request, $id)

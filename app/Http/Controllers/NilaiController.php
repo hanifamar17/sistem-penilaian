@@ -16,10 +16,9 @@ class NilaiController extends Controller
     //Nilai
     public function nilaiIndex(Request $request)
     {
-        $kelas = Kelas::with('WaliKelas')->get();
-        $ujian = Ujian::all();
+        $kelas = Kelas::with('WaliKelas', 'akademik')->get();
 
-        return view('nilai/nilai-home', compact('kelas', 'ujian'));
+        return view('nilai/nilai-home', compact('kelas'));
     }
 
     public function nilaiMapel($kelas_id)
@@ -29,16 +28,16 @@ class NilaiController extends Controller
         $ujian = Ujian::all();
         $siswaList = Siswa::where('kelas_id', $kelas_id)->pluck('id'); // Ambil semua siswa di kelas ini 
 
-        $mapelStatus = $mapelList->map(function ($mapel) use ($siswaList, $ujian){
-            
+        $mapelStatus = $mapelList->map(function ($mapel) use ($siswaList, $ujian) {
+
             $nilaiMapel = Nilai::where('mapel_id', $mapel->id)
-                                ->whereIn('siswa_id', $siswaList)
-                                ->get();
+                ->whereIn('siswa_id', $siswaList)
+                ->get();
 
             $totalExpectedNilai = $siswaList->count() * $ujian->count(); // Hitung jumlah ujian yang diharapkan
 
             // Cek apakah semua nilai sudah diisi
-            $nilaiNull = $nilaiMapel->contains(function ($item){
+            $nilaiNull = $nilaiMapel->contains(function ($item) {
                 return is_null($item->nilai);
             });
 
@@ -75,10 +74,20 @@ class NilaiController extends Controller
 
     public function nilaiInsert(Request $request, $kelas_id, $mapel_id)
     {
+        $request->validate([
+            'nilai.*.*' => 'required|numeric', // Validasi agar nilai bisa berupa angka, termasuk pecahan
+        ]);
+
         $nilai_data = $request->input('nilai');
+
+        // Ambil akademik_id dari kelas yang dipilih
+        $kelas = Kelas::findOrFail($kelas_id);
+        $akademik_id = $kelas->akademik_id;
 
         foreach ($nilai_data as $siswa_id => $nilai_per_ujian) {
             foreach ($nilai_per_ujian as $ujian_id => $nilai) {
+
+                $nilai_float = floatval($nilai);
                 Nilai::updateOrCreate(
                     [
                         'siswa_id' => $siswa_id,
@@ -86,7 +95,9 @@ class NilaiController extends Controller
                         'ujian_id' => $ujian_id,
                     ],
                     [
-                        'nilai' => $nilai,
+                        'nilai' => $nilai_float,
+                        'kelas_id' => $kelas_id,  // Menambahkan kelas_id
+                        'akademik_id' => $akademik_id,  // Menambahkan akademik_id
                     ]
                 );
             }

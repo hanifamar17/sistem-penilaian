@@ -2,7 +2,7 @@
 @section('Selamat Datang','Selamat Datang, Sistem Penilaian')
 @include('template/sidebar')
 @section('container')
-<div class="p-4 sm:ml-52">
+<div class="p-4 sm:ml-56">
     <div class="p-4 rounded-md mt-14 bg-white">
         <div class="m-4">
             <nav class="mb-8">
@@ -71,7 +71,7 @@
                             @endphp
                             <td class="px-3 py-2">
                                 <input type="hidden" name="siswa_ids[]" value="{{ $s->id }}">
-                                <input type="number" name="nilai[ {{ $s->id }} ][ {{ $u->id }} ]" value="{{ $existingValue }}" placeholder="Nilai {{ $u->name }}" class="px-2 py-2 max-w-36">
+                                <input type="number" name="nilai[ {{ $s->id }} ][ {{ $u->id }} ]" value="{{ $existingValue }}" placeholder="Nilai {{ $u->name }}" step="0.001" class="px-2 py-2 max-w-36">
                             </td>
                             @endforeach
                         </tr>

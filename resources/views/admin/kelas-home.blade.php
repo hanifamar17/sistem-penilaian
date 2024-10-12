@@ -2,7 +2,7 @@
 @section('Selamat Datang','Selamat Datang, Sistem Penilaian')
 @include('template/sidebar')
 @section('container')
-<div class="p-4 sm:ml-52">
+<div class="p-4 sm:ml-56">
     <div class="p-4 rounded-md mt-14 bg-white">
         <div class="m-4">
             <h5 class="text-2xl font-medium tracking-tight">Class</h5>

@@ -2,7 +2,7 @@
 @section('Selamat Datang','Selamat Datang, Sistem Penilaian')
 @include('template/sidebar')
 @section('container')
-<div class="p-4 sm:ml-52">
+<div class="p-4 sm:ml-56">
     <div class="p-4 rounded-md mt-14 bg-white">
         <div class="m-4">
             <nav class="mb-8">
@@ -49,8 +49,6 @@
                         <th scope="col" class="px-3 py-3">Mata Pelajaran</th>
                         <th scope="col" class="px-3 py-3">Guru</th>
                         <th scope="col" class="px-3 py-3">Status</th>
-                        <th scope="col" class="px-3 py-3">Semester</th>
-                        <th scope="col" class="px-3 py-3">Tahun Ajaran</th>
                         <th scope="col" class="px-3 py-3">Action</th>
                     </tr>
                 </thead>
@@ -71,18 +69,6 @@
                                 In-Progress
                             </span>
                             @endif
-                        </td>
-                        <td class="px-3 py-2">
-                            @foreach($ujian as $u)
-                            {{ $u->semester }}
-                            @break
-                            @endforeach
-                        </td>
-                        <td class="px-3 py-2">
-                            @foreach($ujian as $u)
-                           {{ $u->tahun_ajaran }}
-                            @break
-                            @endforeach
                         </td>
                         <td class="px-3 py-2">
                             <div class="flex flex-row space-x-4">

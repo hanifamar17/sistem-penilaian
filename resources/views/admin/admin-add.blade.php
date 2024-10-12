@@ -2,7 +2,7 @@
 @include('template/sidebar')
 @section('title','Admin')
 @section('container')
-<div class="p-4 sm:ml-52">
+<div class="p-4 sm:ml-56">
     <div class="p-4 rounded-md mt-14 bg-white">
         <div class="m-4">
 
