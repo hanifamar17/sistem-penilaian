@@ -55,6 +55,7 @@
                             @foreach ($ujian as $u)
                             <th scope="col" class="px-3 py-3">{{ $u->name }}</th>
                             @endforeach
+                            <th scope="col" class="px-3 py-3">Rapor</th>
                         </tr>
                     </thead>
                     <tbody class="text-gray-700">
@@ -71,9 +72,10 @@
                             @endphp
                             <td class="px-3 py-2">
                                 <input type="hidden" name="siswa_ids[]" value="{{ $s->id }}">
-                                <input type="number" name="nilai[ {{ $s->id }} ][ {{ $u->id }} ]" value="{{ $existingValue }}" placeholder="Nilai {{ $u->name }}" step="0.001" class="px-2 py-2 max-w-36">
+                                <input type="number" name="nilai[ {{ $s->id }} ][ {{ $u->id }} ]" value="{{ $existingValue }}" placeholder="Nilai {{ $u->name }}" step="0.01" class="px-2 py-2 max-w-36">
                             </td>
                             @endforeach
+                            <td class="px-3 py-2">{{ $nilai_existing->firstWhere('siswa_id', $s->id)['rapor'] ?? '-' }}</td>
                         </tr>
                         @endforeach
                     </tbody>

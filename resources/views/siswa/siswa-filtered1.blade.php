@@ -69,11 +69,16 @@
                 <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Import
                 </button>-->
-                @foreach($siswa as $sw)
+
                 <div class="min-w-20 text-white text-sm text-center py-2 px-4 ml-2 bg-yellow-600 rounded">
-                    <span>Wali Kelas: <a class="font-medium">{{ $sw->kelas->waliKelas ? $sw->kelas->waliKelas->name : 'Tidak ada wali kelas' }}</a></span>
+                    <span>Wali Kelas:
+                        @foreach($siswa as $sw)
+                        <a class="font-medium">{{ $sw->kelas->waliKelas ? $sw->kelas->waliKelas->name : 'Tidak ada wali kelas' }}</a>
+                        @break
+                        @endforeach
+                    </span>
                 </div>
-                @endforeach
+
             </div>
 
             <table class="w-full text-sm text-left text-gray-500 ">
@@ -88,7 +93,7 @@
                     </tr>
                 </thead>
                 <tbody class="text-gray-700">
-                @if ($siswa->isEmpty())
+                    @if ($siswa->isEmpty())
                     <tr>
                         <td colspan="7" class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-center text-gray-500">
                             Tidak ada data yang ditampilkan.

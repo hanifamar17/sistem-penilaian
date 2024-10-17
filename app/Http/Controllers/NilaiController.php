@@ -75,7 +75,7 @@ class NilaiController extends Controller
     public function nilaiInsert(Request $request, $kelas_id, $mapel_id)
     {
         $request->validate([
-            'nilai.*.*' => 'required|numeric', // Validasi agar nilai bisa berupa angka, termasuk pecahan
+            'nilai.*.*' => 'nullable|numeric', // Validasi agar nilai bisa berupa angka, termasuk pecahan
         ]);
 
         $nilai_data = $request->input('nilai');
@@ -87,7 +87,8 @@ class NilaiController extends Controller
         foreach ($nilai_data as $siswa_id => $nilai_per_ujian) {
             foreach ($nilai_per_ujian as $ujian_id => $nilai) {
 
-                $nilai_float = floatval($nilai);
+                // nilai float adalah null jika tidak ada input
+                $nilai_float = $nilai !== null ? floatval($nilai) : null;
                 Nilai::updateOrCreate(
                     [
                         'siswa_id' => $siswa_id,
@@ -101,6 +102,14 @@ class NilaiController extends Controller
                     ]
                 );
             }
+
+            // Hitung rata-rata rapor setelah nilai disimpan
+            $rapor = Nilai::hitungRapor($siswa_id, $mapel_id);
+
+            // Update kolom 'rapor' dengan rata-rata yang dihitung
+            Nilai::where('siswa_id', $siswa_id)
+                ->where('mapel_id', $mapel_id)
+                ->update(['rapor' => $rapor]);
         }
 
         return redirect()->back()->with('success', 'Data berhasil disimpan!');

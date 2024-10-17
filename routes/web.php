@@ -112,6 +112,16 @@ route::prefix('nilai') -> group(function () {
 }
 );
 
+route::prefix('rapor') -> group(function () {
+    Route::get('/', 'App\Http\Controllers\RaporController@raporIndex')->name('rapor-home');
+    Route::get('/rapor-siswa/{kelas_id}', 'App\Http\Controllers\RaporController@showSiswa')->name('rapor-siswa');
+    Route::get('/rapor-view', 'App\Http\Controllers\RaporController@showRapor')->name('rapor-view');
+    Route::post('/rapor-insert', 'App\Http\Controllers\RaporController@insertRapor')->name('rapor-insert');
+}
+);
+
+Route::get('/login', 'App\Http\Controllers\AdminController@login')->name('login');
+
 
 
 

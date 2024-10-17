@@ -15,6 +15,11 @@ use Illuminate\Validation\Rule;
 
 class AdminController extends Controller
 {
+    public function login()
+    {
+        return view('template/login');
+    }
+    
     //Index for Admin-Guru-Kelas-Wali Kelas-Mapel
     public function index(Request $request)
     {

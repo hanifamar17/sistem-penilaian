@@ -73,6 +73,7 @@
                 <div class="min-w-20 text-white text-sm text-center py-2 px-4 ml-2 bg-yellow-600 rounded">
                     <span>Wali Kelas: <a class="font-medium">{{ $mp->kelas->waliKelas->name ? $mp->kelas->waliKelas->name : 'Tidak ada wali kelas' }}</a></span>
                 </div>
+                @break
                 @endforeach
             </div>
 
